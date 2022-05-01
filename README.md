@@ -5,9 +5,14 @@ Trava
 
 To run the API with docker:
 
-  docker build -t trava-api .
+    docker build -t trava-api .
 
 
 To run the APi with docker:
 
-  sudo docker run -it --rm -p 8080:8080 trava-api
+    docker run -it --rm -p 8080:8080 trava-api
+
+
+To run API and PostgreSQL database, run:
+
+    docker-compose up -d
