@@ -17,7 +17,7 @@ public class TravaApiApplication {
 
 	@GetMapping("/")
 	public String root() {
-		return String.format("This is Trava, version %s", buildProperties.getVersion());
+		return String.format("This is Trava! Version=%s", buildProperties.getVersion());
 	}
 
 	@GetMapping("/hello")
