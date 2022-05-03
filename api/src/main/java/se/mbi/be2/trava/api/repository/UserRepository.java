@@ -1,4 +1,4 @@
-package se.mbi.be2.trava.api.repo;
+package se.mbi.be2.trava.api.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
