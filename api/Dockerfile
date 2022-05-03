@@ -2,6 +2,9 @@ FROM openjdk:11 AS build-stage
 
 WORKDIR /build
 COPY . .
+
+# We can skip running the tests while building like this:
+#RUN ./mvnw package -DskipTests
 RUN ./mvnw package
 
 FROM openjdk:11
