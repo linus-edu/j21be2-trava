@@ -1,10 +1,12 @@
 package se.mbi.be2.trava.api.model;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user_")
-public class User {
+public class UserEntity /*implements UserDetails*/ {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,11 +14,13 @@ public class User {
 
     private String name;
 
-    public User() {
+//    private String password;
+
+    public UserEntity() {
 
     }
 
-    public User(String name) {
+    public UserEntity(String name) {
         this.name = name;
     }
 
