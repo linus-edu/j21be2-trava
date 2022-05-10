@@ -6,7 +6,7 @@ plugins {
 
 group = 'se.mbi.be2.trava'
 version = '0.0.4-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
