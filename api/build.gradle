@@ -17,6 +17,8 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+	implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+
 	runtimeOnly('org.postgresql:postgresql')
 	implementation('com.h2database:h2')
 
