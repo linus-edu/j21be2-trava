@@ -8,9 +8,11 @@ import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.security.Key;
@@ -19,19 +21,27 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@Component
+// @Component
+@Service
 public class JwtTokenService {
 
     private static final Logger LOG = LoggerFactory.getLogger(JwtTokenService.class);
 
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
-    @Value("${jwt.secret:}")
+    // @Value("${jwt.secret:}")
     private String secret;
 
     private Key jwtKey;
 
-    @PostConstruct
+    // Taking the key in the constructor to be able to inject it from unit test
+    @Autowired
+    JwtTokenService(@Value("${jwt.secret:}") String secret) {
+       this.secret = secret;
+        init();
+    }
+
+    // @PostConstruct
     public void init() {
         if (secret.isEmpty()) {
             jwtKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
