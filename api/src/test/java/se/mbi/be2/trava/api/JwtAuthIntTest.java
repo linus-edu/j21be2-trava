@@ -36,16 +36,33 @@ public class JwtAuthIntTest {
 //                String.class)).contains("Hello, World");
     }
 
-    @Test
-    public void requestWithValidToken() throws Exception {
+    private HttpEntity getValidToken() {
         String validToken = restTemplate.getForObject("http://localhost:" + port + "/login", String.class);
-
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + validToken);
         HttpEntity httpEntity = new HttpEntity(headers);
+        return httpEntity;
+    }
+
+    @Test
+    public void requestWithValidToken() throws Exception {
+        HttpEntity httpEntity = getValidToken();
         assertThat(this.restTemplate.exchange("http://localhost:" + port + "/message-worker",
                 HttpMethod.GET, httpEntity, Void.class).getStatusCodeValue()).isEqualTo(200);
     }
+
+
+
+//    @Test
+//    public void requestWithValidToken() throws Exception {
+//        String validToken = restTemplate.getForObject("http://localhost:" + port + "/login", String.class);
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + validToken);
+//        HttpEntity httpEntity = new HttpEntity(headers);
+//        assertThat(this.restTemplate.exchange("http://localhost:" + port + "/message-worker",
+//                HttpMethod.GET, httpEntity, Void.class).getStatusCodeValue()).isEqualTo(200);
+//    }
 
     @Test
     public void requestWithJwtWrongKey() throws Exception {
