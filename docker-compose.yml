@@ -25,6 +25,7 @@ services:
     environment:
       api_base_url: "https://google.com/"
       db_host: "db"
+      rabbitmq_host: "rabbitmq"
     depends_on:
       - db
       - rabbitmq

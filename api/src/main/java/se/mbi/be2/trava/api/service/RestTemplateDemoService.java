@@ -1,4 +1,4 @@
-package se.mbi.be2.trava.api.demo.resttemplate;
+package se.mbi.be2.trava.api.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class GetDemoService {
+public class RestTemplateDemoService {
 
     // https://attacomsian.com/blog/http-requests-resttemplate-spring-boot
 
@@ -15,7 +15,7 @@ public class GetDemoService {
     @Value("${api_base_url:https://jsonplaceholder.typicode.com/posts}")
     private String apiBaseUrl;
 
-    GetDemoService(RestTemplateBuilder restTemplateBuilder) {
+    RestTemplateDemoService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
