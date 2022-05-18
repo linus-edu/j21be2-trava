@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  db:
+    image: "postgres:14.2-alpine"
+    environment:
+      POSTGRES_USER: trava
+      POSTGRES_PASSWORD: trava
+      POSTGRES_DB: trava
+    ports:
+      - "127.0.0.1:5432:5432"
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - 5672:5672
+      - 127.0.0.1:15672:15672

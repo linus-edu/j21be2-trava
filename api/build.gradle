@@ -25,6 +25,10 @@ dependencies {
 	runtimeOnly('org.postgresql:postgresql')
 	implementation('com.h2database:h2:2.1.212')
 
+	implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.8')
+	implementation('org.springdoc:springdoc-openapi-ui:1.6.8')
+	implementation('org.springdoc:springdoc-openapi-security:1.6.8')
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
