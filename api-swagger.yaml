@@ -1,0 +1,117 @@
+openapi: 3.0.1
+info:
+  title: Trava API
+  version: v1
+servers:
+  - url: http://localhost:8080
+    description: Localhost
+paths:
+  /api/users:
+    post:
+      tags:
+        - User
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+        required: true
+      responses:
+        '201':
+          description: The user was successfully created
+        '409':
+          description: The username already exists
+    get:
+      summary: Get all users
+      description: >
+        Get a list of all users including their user names and passwords.
+        A long description can be written like this.
+      tags:
+        - User
+      operationId: getUsers
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+      security:
+        - bearerAuth: []
+  /api/accesstoken:
+    post:
+      tags:
+        - Access token
+      operationId: createAccessToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccessToken'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/demo/resttemplate:
+    get:
+      tags:
+        - Demo
+      operationId: getDemo
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/demo/rabbitmq:
+    get:
+      tags:
+        - Demo
+      operationId: messageWorker
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/demo/hello:
+    get:
+      tags:
+        - Demo
+      operationId: root
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    CreateUser:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    CreateAccessToken:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
