@@ -2,6 +2,8 @@ package se.mbi.be2.trava.api.security;
 
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private static final Logger LOG = LoggerFactory.getLogger(JwtRequestFilter.class);
 
+    private final Counter validatedTokensCounter = Metrics.counter("jwt-filter.token-validation", "result", "accepted");
+    private final Counter rejectedTokensCounter = Metrics.counter("jwt-filter.token-validation", "result", "rejected");
+
     @Autowired
     private JwtTokenService jwtTokenService;
 
@@ -45,10 +50,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                             .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthToken);
                 }
+                validatedTokensCounter.increment();
             } catch (SignatureException e) {
-                LOG.info("Got invalid JWT token");
+                LOG.debug("Got invalid JWT token");
+                rejectedTokensCounter.increment();
             } catch (MalformedJwtException e) {
-                LOG.info("Got malformed JWT token");
+                LOG.debug("Got malformed JWT token");
+                rejectedTokensCounter.increment();
             }
         }
 
