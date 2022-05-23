@@ -18,6 +18,11 @@ services:
     ports:
       - "127.0.0.1:8086:8086"
 
+  loki:
+    image: grafana/loki
+    ports:
+      - "127.0.0.1:3100:3100"    
+
   grafana:
     image: grafana/grafana:8.5.3
     ports:
@@ -53,10 +58,12 @@ services:
       db_host: "db"
       rabbitmq_host: "rabbitmq"
       influx_url: "http://influxdb:8086"
+      loki_url: "http://loki:3100/loki/api/v1/push"
     depends_on:
       - db
       - rabbitmq
     restart: unless-stopped
+    hostname: api
 
   rabbitworker:
     build: rabbitworker/
